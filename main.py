@@ -39,11 +39,9 @@ disp = ConfusionMatrixDisplay(
     display_labels=le.classes_  
 )
 
-# 7. Plot
 fig, ax = plt.subplots(figsize=(6, 6))
 disp.plot(ax=ax, cmap='Blues')
 plt.title('Confusion Matrix for Gender Classification')
 plt.show()
 
-# 8. (Optional) Detailed metrics
 print(classification_report(y_test, y_pred, target_names=le.classes_))
