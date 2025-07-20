@@ -4,6 +4,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, recall_score, precision_score
 
 # 1. Load data
 df = pd.read_csv('gender.csv')  # make sure data.csv is in your working dir
@@ -39,9 +40,30 @@ disp = ConfusionMatrixDisplay(
     display_labels=le.classes_  
 )
 
-fig, ax = plt.subplots(figsize=(6, 6))
-disp.plot(ax=ax, cmap='Blues')
-plt.title('Confusion Matrix for Gender Classification')
-plt.show()
+# fig, ax = plt.subplots(figsize=(6, 6))
+# disp.plot(ax=ax, cmap='Blues')
+# plt.title('Confusion Matrix for Gender Classification')
+# plt.show()
 
 print(classification_report(y_test, y_pred, target_names=le.classes_))
+
+# 1. Accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+# 2. Precision (positive predictive value)
+precision = precision_score(y_test, y_pred)
+
+# 3. Recall (true positive rate)
+recall = recall_score(y_test, y_pred)
+
+# 4. Confusion Matrix Elements
+tn, fp, fn, tp = cm.ravel()  # cm must be 2x2
+
+# 5. False Positive Rate (FPR = FP / (FP + TN))
+fpr = fp / (fp + tn)
+
+# 6. Print them
+print(f"Accuracy : {accuracy:.2f}")
+print(f"Precision: {precision:.2f}")
+print(f"Recall   : {recall:.2f}")
+print(f"FPR      : {fpr:.2f}")
